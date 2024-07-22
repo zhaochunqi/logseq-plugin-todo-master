@@ -38,14 +38,16 @@ export function ProgressBar({
   }
   const { done, now, later } = status;
   const total = done + now + later;
-  const percentage = total === 0 ? `0` : ((done / total) * 100).toFixed(0);
+  const percentage = total ? ((done / total) * 100).toFixed(0) : `0`;
+  const weight = done || 1;
   const shortText = `${percentage}%`;
   const fullText = `${mode}:${done}/${total}`;
   const [width] = getTextLabelSize(fullText);
+
   return (
     <div className="todo-master-progress-bar">
       <div className="todo-master-progress-bar__bars">
-        {renderBar(done, "done")}
+        {renderBar(weight, "done")}
         {renderBar(now, "now")}
         {renderBar(later, "later")}
       </div>
